@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'jscs', 'karma']);
 
     // uglify
-    grunt.registerTask('minify', ['uglify']);
+    grunt.registerTask('minify', ['uglify', 'umd']);
 
     //connect - local server
     grunt.registerTask('serve', ['connect']);
@@ -74,6 +74,19 @@ module.exports = function (grunt) {
                 src : ['src/**/*.js'],
                 dest : 'calendar.min.js'
             }
+        },
+        umd: {
+          all: {
+            options: {
+              src: 'calendar.min.js', // optional, if missing the src will be used
+              objectToExport: 'library', // optional, internal object that will be exported
+              amdModuleId: 'ui-calendar', // optional, if missing the AMD module will be anonymous
+              globalAlias: 'alias', // optional, changes the name of the global variable
+              deps: {
+                'default': ['fullcalendar'],
+              }
+            }
+          }
         },
         connect : {
             server : {
